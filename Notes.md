@@ -19,3 +19,9 @@ I had run application using flask run
 The output must be "Project 1: TODO"!
 The time taken for this task is around 45 minutes.
 But I didn't get the correct output >Then I took reference as my peer and he explained me clearly about this issue and I uninstalled "werkzeug" and installed with version 0.16.0 which is working.
+
+TASK-3:TO DEVELOP AN API KEY IN GOODREADS AS WE HAVE YO USE THEIR API
+Go to https://www.goodreads.com/api and sign up for a Goodreads account if you don’t already have one.
+Navigate to https://www.goodreads.com/api/keys and apply for an API key. For “Application name” and “Company name” feel free to just write “project1,” and no need to include an application URL, callback URL, or support URL.
+You should then see your API key. (For this project, we’ll care only about the “key”, not the “secret”.)
+Time taken for the project ia around 20 minutes..
