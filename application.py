@@ -22,7 +22,6 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-
 @app.route("/")
 def index():
     return "<h1>Register</h1>"
