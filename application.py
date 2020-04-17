@@ -1,6 +1,6 @@
 import os
 import sys
-
+from flask import redirect
 from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -24,16 +24,15 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    return "<h1>Register</h1>"
+    return redirect("/register")
 
-@app.route("/register")
-def register():
-    return render_template("registration.html")
-
-@app.route("/userDetails",methods=["POST"])
+@app.route("/register",methods=["POST","GET"])
 def userDetails():
-    username=request.form.get("username")
-    password=request.form.get("password")
-    print(username,file=sys.stderr)
+    if request.method == 'POST':
+        username=request.form.get("username")
+        password=request.form.get("password")
+        print(username,file=sys.stderr)
+        return render_template("user.html" , user=username)
+    else:
+        return render_template("registration.html")
 
-    return render_template("user.html" , user=username)
