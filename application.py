@@ -45,7 +45,6 @@ def userDetails():
 
     return render_template("user.html", username = userName) 
 
-
 @app.route("/admin")
 
 def admin():
