@@ -2,6 +2,7 @@ import os
 import time
 import sys
 
+from sqlalchemy import create_engine,desc
 from flask import Flask, session, render_template, request
 from users import *
 
@@ -46,8 +47,6 @@ def userDetails():
     return render_template("user.html", username = userName) 
 
 @app.route("/admin")
-
 def admin():
-
-    adm = user.query.all()
+    adm = user.query.order_by(desc(user.time)).all()
     return render_template("admin.html", adm = adm)
