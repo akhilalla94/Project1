@@ -1,37 +1,27 @@
 import os
-<<<<<<< HEAD
+import time
 import sys
 
+from sqlalchemy import create_engine,desc
 from flask import Flask, session, render_template, request
-=======
+from users import *
 
-from flask import Flask, session
->>>>>>> 533f51b857f74d42945d5950d36c74a95619b1da
-from flask_session import Session
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+app = Flask(__name__,static_url_path='/static')
 
-<<<<<<< HEAD
-app = Flask(__name__, static_url_path='/static')
-
-=======
-app = Flask(__name__)
->>>>>>> 533f51b857f74d42945d5950d36c74a95619b1da
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
 # Configure session to use filesystem
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
 
-# Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
-db = scoped_session(sessionmaker(bind=engine))
 
-<<<<<<< HEAD
+with app.app_context():
+    db.create_all()
+
 @app.route("/")
 def index():
     return "<h1>Register</h1>"
@@ -40,16 +30,23 @@ def index():
 def register():
     return render_template("registration.html")
 
-@app.route("/userDetails",methods=["POST"])
+@app.route("/userDetails",methods=["POST","GET"])
 def userDetails():
-    username=request.form.get("username")
-    password=request.form.get("password")
-    print(username,file=sys.stderr)
+    userName = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("pwd")  
+    obj = user.query.filter_by(username = userName).first()
+    if obj is None:
+        usr = user(username = userName, email = email, password = password, time = time.ctime(time.time()))
+        db.session.add(usr)
+        db.session.commit()
+    else:
+        print()
+        return render_template("registration.html", message = "email already exists.")
 
-    return render_template("user.html" , user=username)
-=======
+    return render_template("user.html", username = userName) 
 
-@app.route("/")
-def index():
-    return "Project 1: TODO"
->>>>>>> 533f51b857f74d42945d5950d36c74a95619b1da
+@app.route("/admin")
+def admin():
+    adm = user.query.order_by(desc(user.time)).all()
+    return render_template("admin.html", adm = adm)

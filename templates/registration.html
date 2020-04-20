@@ -11,9 +11,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
   </head>
   <body>
+    
   <div class = "container" id="main">
       <h1 style="text-align:center;">REGISTRATION FORM</h1>
     <div class = "registration"></div>
+    <p style="color:red;">{{ message  }}</p>
       <form action = "{{url_for ('userDetails') }}" method = "post">
         <label for="username">Username:</label><br />
         <input type="text" id="username" placeholder="Enter name" name="username"> <br>
