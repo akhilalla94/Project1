@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
+    
 <head>
-    <title>Akhil</title>
+    <title>WELCOME</title>
 </head>
 <body>
-    <h1>New user has been registered </h1>
+    <h1>{{ message }}</h1>
+    <h1> Logged in as {{ username }}</h1><br>
+    <form>
+        <button type="submit" formaction="{{ url_for('logout',username=username) }}">Logout</button>
+    </form>
 </body>
+
+
 </html>
