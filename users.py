@@ -10,3 +10,4 @@ class user(db.Model):
     email = db.Column(db.String, unique = True, nullable = False)
     password = db.Column(db.String, nullable = False)
     time = db.Column(db.DateTime, nullable = False)
+    
