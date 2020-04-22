@@ -18,8 +18,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
 
 @app.route("/")
 def index():
@@ -27,9 +25,6 @@ def index():
         return redirect(url_for("home"))    
     return redirect(url_for("register"))
 
-@app.route("/register")
-def register():
-    return render_template("registration.html")
 
 @app.route("/logout/<username>")
 def logout(username):
@@ -69,8 +64,9 @@ def auth():
         return "<h1>Please login/register instead</h1>"
 
 
-@app.route("/userDetails",methods=["POST","GET"])
-def userDetails():
+@app.route("/register",methods=["POST","GET"])
+def register():
+    db.create_all()
     if request.method=='POST':
 
         userName = request.form.get("username")
@@ -86,8 +82,7 @@ def userDetails():
         else:
             return render_template("registration.html", message = "email already exists.")
 
-    return "<h1>Please try to register </h1>"
-
+    return render_template("registration.html")
 @app.route("/admin")
 def admin():
     adm = user.query.order_by(desc(user.time)).all()
