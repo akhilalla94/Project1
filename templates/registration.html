@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="{{url_for('static',filename ='js/Registration.js')}}"></script>
+
   </head>
   <body>
   <div class = "container" id="main">
       <h1 style="text-align:center;">REGISTRATION FORM</h1>
     <div class = "registration"></div>
     <p style="color:red;">{{ message  }}</p>
-      <form >
+      <form  name ="register">
         <label for="username">Username:</label><br />
         <input type="text" id="username" placeholder="Enter name" name="username"> <br>
+        <p style="color:red;" class="usermessage"></p><br />
         <input type="radio" id="male" name="gender" value="male">
         <label for="male">Male</label><br>
         <input type="radio" id="female" name="gender" value="female">
@@ -28,11 +31,15 @@
         <input type="date" id="birthday" name="birthday"> <br>
         <label for="email">Email:</label> <br>
         <input type="email"  id="email" placeholder="Enter email" name="email"><br>
+        <p style="color:red;" class="emailmessage"></p><br />
+
         <label for="pwd">Password:</label><br>
         <input type="password"  id="pwd" placeholder="Enter password" name="pwd"><br>
-        <button type="submit" class="btn" formmethod ="POST"
+        <p style="color:red;" class="passmessage"></p><br />
+
+        <button type="submit" class="btn" formmethod ="POST" onclick="return validform()"
         formaction="{{url_for('register')}}">Register</button>
-        <button type="submit" class="btn" formmethod ="POST"
+        <button type="submit" class="btn" formmethod ="POST" onclick="return validform()"
         formaction="{{url_for('auth')}}">Login</button><br>
       </form>
     </div>
